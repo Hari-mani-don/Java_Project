@@ -7,15 +7,18 @@ public class Main {
     	  Register register = null;
     	  Login login = null;
     	  LoginInside loginInside = null;
+    	  ATM atm = null;
     	  
     	  while(true) {
     	  System.out.println("\t 1.Register");
     	  System.out.println("\t 2.Login");
-    	  System.out.println("\t 3.print");
-    	  System.out.println("\t 4.exit");
+    	  System.out.println("\t 3.profile");
+    	  System.out.println("\t 4.ATM");
+    	  System.out.println("\t 5.exit");
+    	  
     	 
     	  int num;
-    	  System.out.print("\nSelect options: ");
+    	  System.out.print("\nSelect option: ");
     	  num = sc.nextInt();
     	 
     	
@@ -23,11 +26,10 @@ public class Main {
     	       case 1:
     	    	   register = new Register();
     	    	   register.customerDetails();
-//   	    	   Register register = new Register(customer.name, customer.age, customer.birth, customer.mobile, customer.address, customer.email, customer.amount);
     	    	  while(true) {
     	    		  register.printDetails();
     	    		   char condition;
-    	    	 	   System.out.print("\nIf you want to change Details.Enter (Y/N)");
+    	    	 	   System.out.print("\nIf you want to change Details, Enter (Y/N)");
     	    	 	   condition = sc.next().charAt(0);
     	    		  if(condition == 'y' || condition == 'Y') {
     	    			  register.changeDetail();
@@ -37,15 +39,18 @@ public class Main {
     	    		   }
     	    	  }
     	    	  System.out.println("Register Successfully\n");
+    	    	  
     	    	  break;
     	       case 2:
     	    	   System.out.println("\t\tWelcome to Hari\n");
-    	    	   if(register != null) {
-    	    	    login = new Login(register);
-    	    	    login.CheckUserAccess();
-    	    	    loginInside = new LoginInside(register);
-    	    	    loginInside.icon();
-    	    	   }else {
+	    	    	   if(register != null) {
+	    	    	    login = new Login(register);
+	    	    	    login.CheckUserAccess();
+		    	    	    if(login.name.equals(register.getUserName()) && login.password.equals(register.getPassword())) {
+		    	    	    loginInside = new LoginInside(register);
+		    	    	    loginInside.icon();
+		    	    	    }
+    	    	  }else {
     	    		   System.out.println("Please Register first");
     	    	   }
     	    	   break;
@@ -57,8 +62,19 @@ public class Main {
     	    			  System.out.println("No user Details Available. please Login First");
     	    		  }
     	    		  break;
-    	    
     	       case 4:
+    	    	   if(register !=null) {
+    	    	   if(register != null && loginInside != null) {
+    	    		   atm = new ATM(register, loginInside);
+        	    	   atm.AtmInside();
+    	    	    }else {
+    	    	    	System.out.println("please Login first");
+    	    	    }
+    	    	   }else {
+   			    	System.out.println("please Register first");
+    	    	   }
+    	    	   break;
+    	       case 5:
     		        sc.close();
     		        System.exit(0);	
     		        break;

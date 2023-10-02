@@ -2,10 +2,23 @@ package com.Hari;
 import java.util.Scanner;
 public class LoginInside {
 	 Scanner sc = new Scanner(System.in);
-	
-	 int check =1,  passCheck =1, newPinPassword, Pinpassword, repeatPinPassword, oldPinPassword;
-     String password = null, repeatPassword = null;
-	  
+	 
+	 int  passCheck =1, Pinpassword, repeatPinPassword, oldPinPassword;
+     public Scanner getSc() {
+		return sc;
+	}
+	public void setSc(Scanner sc) {
+		this.sc = sc;
+	}
+	public int getPinpassword() {
+		return Pinpassword;
+	}
+	public void setPinpassword(int pinpassword) {
+		Pinpassword = pinpassword;
+	}
+
+	String password = null, repeatPassword = null;
+	 int pinSet =0;
 	 public String getPassword() {
 		return password;
 	}
@@ -33,9 +46,8 @@ public class LoginInside {
     	  System.out.println("\t 1.Deposit");
     	  System.out.println("\t 2.Balance Check");
     	  System.out.println("\t 3.Logout");
-    	  if(check==1) {
+    	  if(pinSet == 0) {
     	        System.out.println("\t 4.set ATM PIN");
-    	        check=0;
     	  }
     	  else {
     		   System.out.println("\t 4.Change ATM PIN");
@@ -48,22 +60,10 @@ public class LoginInside {
     	    
     	  switch(num) {
     		  case 1:
-    			    System.out.println("Enter Deposite Amount: ");
-    			    amount =  sc.nextDouble();   			    
-    			    register.setAmount(register.getAmount() + amount);
-    			    System.out.println("Successfully Deposit");
-    			    
+    			  Deposite();
     			  break;
     		  case 2:
-    			  int pin =0;
-    			  System.out.println("Enter ATM pin");
-    			  pin = sc.nextInt();
-    			  if(Pinpassword == pin) {
-    				  System.out.println("Balance:  rs. "+ register.getAmount());
-    			  }else {
-    				  System.out.println("Please set ATM pin");
-    			  }
-    			 
+    			  BalanceCheck();
     			  break;
     		  case 3:
     			  condition = false;
@@ -81,6 +81,27 @@ public class LoginInside {
     	 
     } 
      
+      public void Deposite() {
+    	   System.out.println("Enter Deposite Amount: ");
+		    amount =  sc.nextDouble();   			    
+		    register.setAmount(register.getAmount() + amount);
+		    System.out.println("Successfully Deposit");
+      }
+     
+      public void BalanceCheck() {
+    	  int pin =0;
+		  System.out.println("Enter ATM pin");
+		  pin = sc.nextInt();
+		  if(pinSet == 1) {
+		  if(Pinpassword == pin ) {
+			  System.out.println("Balance:  rs. "+ register.getAmount());
+		  }else {
+			  System.out.println("Incorrect Pin");
+		  }
+		 }else {
+			 System.out.println("Please set ATM pin");
+		 }
+      }
       public void changePassword() {
     	   
     	      int pass =0;
@@ -129,7 +150,7 @@ public class LoginInside {
 		       if(oldPinPassword == Pinpassword) {
 			  passCheck =1;
 		    }else {
-		    	System.out.println("PIN mismatch");
+		    	System.out.println("PINs do not match.");
 		   }
 		    }else {
 		    	System.out.println("No set old PIN.");
@@ -147,9 +168,10 @@ public class LoginInside {
 				  if(Pinpassword == repeatPinPassword) {
 					  System.out.println("\tSuccessfully PIN Changed\n");
 					  passCheck =0;
+					  pinSet =1;
 					  break;
 				  }else {
-					  System.out.println("\n\tPIN mismatch");
+					  System.out.println("\n\tPINs do not match.");
 				  }
 		    }
 	     }

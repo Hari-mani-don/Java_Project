@@ -94,7 +94,7 @@ public class Register {
 	public void changeDetail() {
 	   char changeCharacter;
 
- 	   System.out.print("Enter First Letter to Change like...(Name is N): ");
+ 	   System.out.print("\nEnter First Letter to Change (N/A/D/M/a/E/d/P): ");
        changeCharacter = s.next().charAt(0);
  	   switch(changeCharacter) {
  	         case 'N':
@@ -156,7 +156,6 @@ public class Register {
  	   }
  	   
      }
-	  
 	
      public void printDetails() {
        System.out.println("\nCheck your Details: ");
@@ -169,5 +168,6 @@ public class Register {
   	   System.out.println("Email            :"+getEmail());
   	   System.out.println("depsite Amount   :"+"Rs. "+getAmount());
      }
+    
     
 }
